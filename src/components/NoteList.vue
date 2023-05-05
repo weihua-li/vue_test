@@ -14,7 +14,7 @@
 <script>
 
     import NoteItem from "./NoteItem"
-
+    
     export default {
         name:'NoteList',
         components: { NoteItem },

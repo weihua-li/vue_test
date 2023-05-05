@@ -13,6 +13,7 @@
             :taskList="taskList" 
             :allDone="allDone" 
             :deleteAllDone="deleteAllDone"
+            v-show="this.taskList.length > 0"
           />
         </div>
       </div>
@@ -34,11 +35,7 @@
     components:{NoteHeader,NoteList,NoteFooter},
     data() {
       return {
-        taskList:[
-          {id:'001',info:'吃饭',done:true},
-          {id:'002',info:'睡觉',done:false},
-          {id:'003',info:'打豆豆',done:true}
-        ]
+        taskList:JSON.parse(localStorage.getItem('taskList')) || []
       }
     },
     methods: {
@@ -65,7 +62,15 @@
           return !task.done
         })
       }
-    }, 
+    },
+    watch:{
+      taskList:{
+        deep:true,
+        handler(value){
+          localStorage.setItem('taskList', JSON.stringify(value))
+        }
+      }
+    } 
   })
 </script>
 
