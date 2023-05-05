@@ -3,9 +3,7 @@
         <ul class="todo-main">
             <NoteItem 
                 v-for="t in taskList" 
-                :key="t.id" :taskObj="t" 
-                :changeDone="changeDone"
-                :deleteTask="deleteTask"
+                :key="t.id" :taskObj="t"
             />
         </ul>
     </div>
@@ -14,11 +12,11 @@
 <script>
 
     import NoteItem from "./NoteItem"
-    
+
     export default {
         name:'NoteList',
         components: { NoteItem },
-        props:['taskList','changeDone','deleteTask'],
+        props:['taskList'],
     }
 </script>
 

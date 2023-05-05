@@ -10,17 +10,19 @@
 
 <script>
 
+    import pubsub from 'pubsub-js'
+
     export default {
         name:'NoteItem',
-        props:['taskObj','changeDone','deleteTask'],
+        props:['taskObj'],
         methods:{
             changeCheck(){
-                this.changeDone(this.taskObj.id)
+                this.$bus.$emit('changeDone', this.taskObj.id)
             },
             deleteOne(){
-                this.deleteTask(this.taskObj.id)
+                pubsub.publish('deleteTask', (this.taskObj.id))
             }
-        }
+        },
     }
 </script>
 

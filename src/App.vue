@@ -3,16 +3,14 @@
     <div id="root">
       <div class="todo-container">
         <div class="todo-wrap">
-          <NoteHeader :addTask="addTask"/>
+          <NoteHeader @addTask="addTask"/>
           <NoteList 
             :taskList="taskList" 
-            :changeDone="changeDone" 
-            :deleteTask="deleteTask"
           />
           <NoteFooter 
             :taskList="taskList" 
-            :allDone="allDone" 
-            :deleteAllDone="deleteAllDone"
+            @allDone="allDone" 
+            @deleteAllDone="deleteAllDone"
             v-show="this.taskList.length > 0"
           />
         </div>
@@ -26,6 +24,7 @@
   import NoteHeader from './components/NoteHeader'
   import NoteList from './components/NoteList'
   import NoteFooter from './components/NoteFooter'
+  import pubsub, { PubSub } from 'pubsub-js'
 
   export default({
     name:'App',
@@ -52,7 +51,7 @@
           task.done = done
         });
       },
-      deleteTask(id){
+      deleteTask(masgName, id){
         this.taskList = this.taskList.filter((task) => {
           return task.id !== id
         })
@@ -70,7 +69,15 @@
           localStorage.setItem('taskList', JSON.stringify(value))
         }
       }
-    } 
+    },
+    mounted() {
+      this.$bus.$on('changeDone', this.changeDone);
+      this.pid = pubsub.subscribe('deleteTask', this.deleteTask);
+    },
+    beforeDestroy() {
+      this.$bus.$off('changeDone');
+      PubSub.unsubscribe(pid);
+    },
   })
 </script>
 

@@ -13,7 +13,7 @@
 <script scope>
     export default {
         name:"NoteFooter",
-        props:['taskList', 'allDone', 'deleteAllDone'],
+        props:['taskList'],
         data() {
             return {
                 checked:false
@@ -21,7 +21,7 @@
         },
         methods: {
             deleteDone(){
-                this.deleteAllDone()
+                this.$emit('deleteAllDone')
             }
         },
         computed:{
@@ -43,7 +43,7 @@
                     return this.doneNum === this.totalNum  && this.totalNum > 0
                 },
                 set(value){
-                    this.allDone(value)
+                    this.$emit('allDone', value)
                 }
             }
         },

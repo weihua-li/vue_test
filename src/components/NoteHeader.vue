@@ -18,7 +18,7 @@
             add(){
                 if(!this.info) return
                 const taskObj = {id:nanoid(), info:this.info, done:false}
-                this.addTask(taskObj)
+                this.$emit('addTask', taskObj)
                 this.info = ''
             }
         },
