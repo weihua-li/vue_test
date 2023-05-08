@@ -385,7 +385,7 @@ module.exports = {
                      <div>html结构2</div>
                   </template>
               </Category>
-      子组件中：
+      子组件中： 
               <template>
                   <div>
                      <!-- 定义插槽 -->
